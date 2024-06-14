@@ -117,22 +117,20 @@ class Model(ImageClassificationBase):
             nn.ReLU(),
             
             nn.Flatten(),
-            nn.Linear(256 * 2 * 2, 64),
-            nn.Dropout(0.1),
+            nn.Linear(256 * 2 * 2, 128),
             nn.ReLU(),
             
-            nn.Linear(64, 128),
-            nn.Dropout(0.1),
+            nn.Linear(128, 256),
             nn.ReLU(),
             
-            nn.Linear(128, num_classes)
+            nn.Linear(256, num_classes),
         )
 
     def forward(self, xb):
         return self.network(xb)
 
 class EarlyStopping:
-    def __init__(self, patience=5, delta=0, file_name='model.pth'):
+    def __init__(self, patience=5, delta=0, file_name='cnn.pth'):
         self.patience = patience
         self.delta = delta
         self.path = file_name
